@@ -1,7 +1,6 @@
-//var users = [];
-
 var onSubmitClick = function() {
   var input = $('#hash-input').val();
+  $('#hash-input').val('');
   fetch(input);
 };
 
@@ -24,7 +23,7 @@ var addUser = function(data) {
     username: data.author.login,
     image: data.author.avatar_url 
   };
-  //users.push(userData);
+
   renderHTML(userData);
 }
 

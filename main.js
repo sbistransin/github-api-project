@@ -1,3 +1,5 @@
+var users = [];
+
 var onSubmitClick = function() {
   var input = $('#hash-input').val();
   $('#hash-input').val('');
@@ -19,21 +21,25 @@ var fetch = function(query) {
 }
 
 var addUser = function(data) {
-  var userData = {
+  users.push({
     username: data.author.login,
     image: data.author.avatar_url 
+  });
+
+  renderHTML();
+}
+
+var renderHTML = function() {
+  $('.faces').empty();
+
+  for (let i = 0; i < users.length; i++) {
+    var source = $('#github-template').html();
+    var template = Handlebars.compile(source);
+    var newHTML = template(users[i]);
+    $('.faces').append(newHTML);
   };
-
-  renderHTML(userData);
 }
 
-var renderHTML = function(user) {
-  var source = $('#github-template').html();
-  var template = Handlebars.compile(source);
-  var newHTML = template(user);
-  $('.faces').append(newHTML);
-
-}
 $('#hash-submit').on("click", onSubmitClick);
 
 
